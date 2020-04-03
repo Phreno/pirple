@@ -21,21 +21,46 @@ const server = http.createServer((req, res) => {
   })
   req.on('end', () => {
     buffer += decoder.end()
+    // choose the handler
+    const chosenHandler = typeof (router[trimmedPath]) && router[trimmedPath] || handlers.notFound
     // get the query string
     const queryStringObject = parsedUrl.query
-    // send the response
-    res.end("hello\n")
-    // log the request
-    console.log([
-      `request received on path: ${trimmedPath}`,
-      `method: ${method}`,
-      `query string parameters ${JSON.stringify(queryStringObject)}`,
-      `headers: ${JSON.stringify(headers, null, 2)}`,
-      `payload: ${buffer}`
-    ].join("\n"))
+    // construct the data
+    const data = {
+      trimmedPath,
+      queryStringObject,
+      method,
+      headers,
+      'payload': buffer
+    }
+    // route the request to the handler
+    chosenHandler(data, (statusCode, payload) => {
+      statusCode || (statusCode = 200)
+      payload || (payload = {})
+      const payloadString = JSON.stringify(payload)
+      // send the response
+      res.writeHead(statusCode)
+      res.end(payloadString)
+      // log the request
+      console.log('returning ', statusCode, payloadString)
+    })
   })
 })
 // start the server
 server.listen(3000, () => {
   console.log("start")
 })
+// define the handlers
+const handlers = {}
+handlers.sample = (data, cb) => {
+  cb(406, {
+    'name': 'sample handler'
+  })
+}
+handlers.notFound = (data, cb) => {
+  cb(404)
+}
+// define the router
+const router = {
+  'sample': handlers.sample
+}
