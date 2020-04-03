@@ -1,7 +1,6 @@
 const http = require('http')
 const url = require('url')
 const StringDecoder = require('string_decoder').StringDecoder
-
 // the server respond
 const server = http.createServer((req, res) => {
   // parse the url
@@ -35,10 +34,11 @@ const server = http.createServer((req, res) => {
     }
     // route the request to the handler
     chosenHandler(data, (statusCode, payload) => {
-      statusCode || (statusCode = 200)
-      payload || (payload = {})
+      typeof (statusCode) === 'number' || (statusCode = 200)
+      typeof (payload) === 'object' || (payload = {})
       const payloadString = JSON.stringify(payload)
       // send the response
+      res.setHeader('Content-Type', 'application/json')
       res.writeHead(statusCode)
       res.end(payloadString)
       // log the request
