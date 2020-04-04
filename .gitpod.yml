@@ -10,6 +10,8 @@ vscode:
     - xabikos.JavaScriptSnippets@1.7.2:XXmiw8r7K3Guifex/E73aQ==
     - joelday.docthis@0.7.1:OOpm9cdbc8T5+PL4o+MM3Q==
     - chenxsan.vscode-standardjs@1.2.3:2t/tdtP+Oe0FOyAxtlmquA==
-    - mihelcic.colored-regions@0.0.3:FMnixIVJkEuqBBZa32LOgw==
     - eamodio.gitlens@10.2.1:e0IYyp0efFqVsrZwsIe8CA==
     - HookyQR.beautify@1.5.0:mXo/OcopUVNHHxCPZWwlxQ==
+    - stackbreak.comment-divider@0.2.1:+VcnnVyx+4W86Atcz2hieg==
+    - CoenraadS.bracket-pair-colorizer@1.0.61:fqPT1sJEqaEdrfXeYbdW+A==
+    - oderwat.indent-rainbow@7.4.0:nth8lnJRnQu9NcWvNc9KPA==
