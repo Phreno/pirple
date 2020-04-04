@@ -1,6 +1,7 @@
 const http = require('http')
 const url = require('url')
 const StringDecoder = require('string_decoder').StringDecoder
+const config = require('./config')
 // the server respond
 const server = http.createServer((req, res) => {
   // parse the url
@@ -47,8 +48,8 @@ const server = http.createServer((req, res) => {
   })
 })
 // start the server
-server.listen(3000, () => {
-  console.log("start")
+server.listen(config.port, () => {
+  console.log(`server is starting on port ${config.port}`)
 })
 // define the handlers
 const handlers = {}
