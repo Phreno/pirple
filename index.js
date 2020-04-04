@@ -5,6 +5,7 @@ const StringDecoder = require('string_decoder').StringDecoder
 const config = require('./config')
 const fs = require('fs')
 const _data = require('./lib/data')
+const handlers = require('./lib/handlers')
 // create the http server
 const httpServer = http.createServer((req, res) => {
   unifiedServer(req, res)
@@ -70,11 +71,9 @@ const unifiedServer = (req, res) => {
     })
   })
 }
-// define the handlers
-const handlers = {}
-handlers.ping = (data, cb) => cb(200)
-handlers.notFound = (data, cb) => cb(404)
+
 // define the router
 const router = {
-  ping: handlers.ping
+  ping: handlers.ping,
+  users: handlers.users
 }
