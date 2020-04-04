@@ -2,10 +2,11 @@ const http = require('http')
 const https = require('https')
 const url = require('url')
 const StringDecoder = require('string_decoder').StringDecoder
-const config = require('./config')
+const config = require('./lib/config')
 const fs = require('fs')
 const _data = require('./lib/data')
 const handlers = require('./lib/handlers')
+const helpers = require('./lib/helpers')
 // create the http server
 const httpServer = http.createServer((req, res) => {
   unifiedServer(req, res)
@@ -26,6 +27,13 @@ const httpsServer = https.createServer(httpsServerOptions, (req, res) => {
 httpsServer.listen(config.httpsPort, () => {
   console.log(`server is starting on port ${config.httpsPort} (${config.envName})`)
 })
+
+// define the router
+const router = {
+  ping: handlers.ping,
+  users: handlers.users
+}
+
 // all the logic for http and https
 const unifiedServer = (req, res) => {
   // parse the url
@@ -46,7 +54,9 @@ const unifiedServer = (req, res) => {
   req.on('end', () => {
     buffer += decoder.end()
     // choose the handler
-    const chosenHandler = typeof (router[trimmedPath]) && router[trimmedPath] || handlers.notFound
+    const chosenHandler = (
+      typeof (router[trimmedPath]) && router[trimmedPath]
+    ) || handlers.notFound
     // get the query string
     const queryStringObject = parsedUrl.query
     // construct the data
@@ -55,7 +65,7 @@ const unifiedServer = (req, res) => {
       queryStringObject,
       method,
       headers,
-      'payload': buffer
+      payload: helpers.parseJsonToObject(buffer)
     }
     // route the request to the handler
     chosenHandler(data, (statusCode, payload) => {
@@ -70,10 +80,4 @@ const unifiedServer = (req, res) => {
       console.log('returning ', statusCode, payloadString)
     })
   })
-}
-
-// define the router
-const router = {
-  ping: handlers.ping,
-  users: handlers.users
 }
