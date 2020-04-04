@@ -1,9 +1,31 @@
 const http = require('http')
+const https = require('https')
 const url = require('url')
 const StringDecoder = require('string_decoder').StringDecoder
 const config = require('./config')
-// the server respond
-const server = http.createServer((req, res) => {
+const fs = require('fs')
+// create the http server
+const httpServer = http.createServer((req, res) => {
+  unifiedServer(req, res)
+})
+// start the server
+httpServer.listen(config.httpPort, () => {
+  console.log(`server is starting on port ${config.httpPort} (${config.envName})`)
+})
+// create the https server
+const httpsServerOptions = {
+  key: fs.readFileSync('./https/key.pem'),
+  cert: fs.readFileSync('./https/cert.pem')
+}
+const httpsServer = https.createServer(httpsServerOptions, (req, res) => {
+  unifiedServer(req, res)
+})
+// start the https server
+httpsServer.listen(config.httpsPort, () => {
+  console.log(`server is starting on port ${config.httpsPort} (${config.envName})`)
+})
+// all the logic for http and https
+const unifiedServer = (req, res) => {
   // parse the url
   const parsedUrl = url.parse(req.url, true)
   // get the path
@@ -46,11 +68,7 @@ const server = http.createServer((req, res) => {
       console.log('returning ', statusCode, payloadString)
     })
   })
-})
-// start the server
-server.listen(config.port, () => {
-  console.log(`server is starting on port ${config.port}`)
-})
+}
 // define the handlers
 const handlers = {}
 handlers.sample = (data, cb) => {
