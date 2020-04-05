@@ -1,3 +1,13 @@
+/**
+ * @ Author: Phreno
+ * @ Create Time: 2020-04-05 07:52:08
+ * @ Modified by: Phreno
+ * @ Modified time: 2020-04-05 09:01:19
+ * @ Description: Launch the server
+ */
+
+/* --------------------------------- import --------------------------------- */
+
 const http = require('http')
 const https = require('https')
 const url = require('url')
@@ -7,6 +17,9 @@ const fs = require('fs')
 const _data = require('./lib/data')
 const handlers = require('./lib/handlers')
 const helpers = require('./lib/helpers')
+
+/* ----------------------- configuration http & https ----------------------- */
+
 // create the http server
 const httpServer = http.createServer((req, res) => {
   unifiedServer(req, res)
@@ -28,13 +41,19 @@ httpsServer.listen(config.httpsPort, () => {
   console.log(`server is starting on port ${config.httpsPort} (${config.envName})`)
 })
 
-// define the router
+/* -------------------------------------------------------------------------- */
+/*                              define the router                             */
+/* -------------------------------------------------------------------------- */
+
 const router = {
   ping: handlers.ping,
   users: handlers.users
 }
 
-// all the logic for http and https
+/* -------------------------------------------------------------------------- */
+/*                      all the logic for http and https                      */
+/* -------------------------------------------------------------------------- */
+
 const unifiedServer = (req, res) => {
   // parse the url
   const parsedUrl = url.parse(req.url, true)
