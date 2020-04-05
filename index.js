@@ -2,7 +2,7 @@
  * @ Author: Phreno
  * @ Create Time: 2020-04-05 07:52:08
  * @ Modified by: Phreno
- * @ Modified time: 2020-04-05 09:01:19
+ * @ Modified time: 2020-04-05 13:52:49
  * @ Description: Launch the server
  */
 
@@ -47,7 +47,8 @@ httpsServer.listen(config.httpsPort, () => {
 
 const router = {
   ping: handlers.ping,
-  users: handlers.users
+  users: handlers.users,
+  tokens: handlers.tokens
 }
 
 /* -------------------------------------------------------------------------- */
@@ -96,7 +97,7 @@ const unifiedServer = (req, res) => {
       res.writeHead(statusCode)
       res.end(payloadString)
       // log the request
-      console.log('returning ', statusCode, payloadString)
+      console.log('returning', statusCode, payloadString)
     })
   })
 }

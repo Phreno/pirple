@@ -11,4 +11,5 @@ curl --location --request POST "http://localhost:3000/users" \
   \"tosAgreement\": true
 }"
 echo "... done"
+echo
 done
