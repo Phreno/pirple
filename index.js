@@ -2,7 +2,7 @@
  * @ Author: Phreno
  * @ Create Time: 2020-04-05 07:52:08
  * @ Modified by: Phreno
- * @ Modified time: 2020-04-05 13:52:49
+ * @ Modified time: 2020-04-06 19:04:29
  * @ Description: Launch the server
  */
 
@@ -48,7 +48,8 @@ httpsServer.listen(config.httpsPort, () => {
 const router = {
   ping: handlers.ping,
   users: handlers.users,
-  tokens: handlers.tokens
+  tokens: handlers.tokens,
+  checks: handlers.checks
 }
 
 /* -------------------------------------------------------------------------- */
