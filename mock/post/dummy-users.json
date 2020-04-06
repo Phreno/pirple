@@ -1,0 +1,25 @@
+[{
+  "data":{"firstName": "John",
+  "lastName": "Doe",
+  "phone": "000",
+  "password": "@Bépo1234",
+  "tosAgreement": true}
+},{
+  "data":{"firstName": "John",
+  "lastName": "Doe",
+  "phone": "001",
+  "password": "@Bépo1234",
+  "tosAgreement": true}
+},{
+  "data":{"firstName": "John",
+  "lastName": "Doe",
+  "phone": "002",
+  "password": "@Bépo1234",
+  "tosAgreement": true}
+},{
+  "data":{"firstName": "John",
+  "lastName": "Doe",
+  "phone": "003",
+  "password": "@Bépo1234",
+  "tosAgreement": true}
+}]
