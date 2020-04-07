@@ -2,7 +2,7 @@
  * @ Author: Phreno
  * @ Create Time: 2020-04-05 07:52:08
  * @ Modified by: Phreno
- * @ Modified time: 2020-04-06 19:04:29
+ * @ Modified time: 2020-04-07 08:30:39
  * @ Description: Launch the server
  */
 
@@ -98,7 +98,7 @@ const unifiedServer = (req, res) => {
       res.writeHead(statusCode)
       res.end(payloadString)
       // log the request
-      console.log('returning', statusCode, payloadString)
+      console.log(method.toUpperCase(), `/${trimmedPath}`, 'returns', statusCode, payloadString)
     })
   })
 }
